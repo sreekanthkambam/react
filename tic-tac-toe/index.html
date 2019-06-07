@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <title>Test React</title>
+
+    <!-- Load React API -->
+    <script src= "https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <!-- Load React DOM-->
+    <script src= "https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <!-- Load Babel Compiler -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+    <style>
+        button {
+            padding: 20px;
+            margin: 20px;
+        }
+    </style>
+
+    <body>
+
+        <div id="root"></div>
+
+        <script type="text/babel">
+            class Square extends React.Component {
+                render() {
+                    return <button onClick={this.props.onSquareClick}>
+                        {this.props.value}
+                    </button>;
+                }
+            }
+        </script>
+
+        <script type="text/babel">
+            class Board extends React.Component {
+
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        squares: [
+                            [null, null, null],
+                            [null, null, null],
+                            [null, null, null]
+                        ],
+                        isXNext: true,
+                        winner: null
+                    }
+                }
+
+                calculateWinner(squares) {
+                    const values = [
+                        [[0,0], [0,1], [0,2]],
+                        [[1,0], [1,1], [1,2]],
+                        [[2,0], [2,1], [2,2]],
+                        [[0,0], [1,0], [2,0]],
+                        [[0,1], [1,1], [2,1]],
+                        [[0,2], [1,2], [2,2]],
+                        [[0,0], [1,1], [2,2]],
+                        [[0,2], [1,1], [2,0]]
+                    ];
+                    for(let i = 0; i < values.length; i++) {
+                        if(squares[values[i][0][0]][values[i][0][1]] &&
+                            squares[values[i][0][0]][values[i][0][1]] === squares[values[i][1][0]][values[i][1][1]] &&
+                            squares[values[i][0][0]][values[i][0][1]] === squares[values[i][2][0]][values[i][2][1]]) {
+                                return squares[values[i][0][0]][values[i][0][1]];
+                            }
+                    }
+                    return null;
+                }
+
+                onSquareClick(i, j) {
+                    this.setState((state) => {
+                        if (!state.winner && !state.squares[i][j]) {
+                            state.squares[i][j] = state.isXNext ? 'X' : '0';
+                            return {
+                                squares: state.squares,
+                                isXNext: !state.isXNext,
+                                winner: this.calculateWinner(state.squares)
+                            }
+                        }
+                    });
+                }
+
+                renderSquare(i,j) {
+                    return <Square value={this.state.squares[i][j]} onSquareClick={() => this.onSquareClick(i,j)}/>
+                }
+
+                render() {
+                    return <div>
+                                <div>
+                                    {
+                                        this.state.winner
+                                            ? 'Winner: ' + this.state.winner
+                                            : 'Next Player: ' + (this.state.isXNext ? 'X' : '0')
+                                    }
+                                </div>
+                                <br />
+                                <div>
+                                    <div>
+                                        {this.renderSquare(0,0)}
+                                        {this.renderSquare(0,1)}
+                                        {this.renderSquare(0,2)}
+                                    </div>
+                                    <div>
+                                        {this.renderSquare(1,0)}
+                                        {this.renderSquare(1,1)}
+                                        {this.renderSquare(1,2)}
+                                    </div>
+                                    <div>
+                                        {this.renderSquare(2,0)}
+                                        {this.renderSquare(2,1)}
+                                        {this.renderSquare(2,2)}
+                                    </div>
+                                </div>
+                            </div>;
+                }
+            }
+        </script>
+
+        <script type="text/babel">
+            ReactDOM.render(
+                <Board />, document.getElementById('root')
+            );
+        </script>
+    </body>
+</html>
