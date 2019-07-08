@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Welcome from './Welcome';
 import Form from './Form';
+import Calculator from './Calculator';
 
 const App = () => {
     const names = [ 'Sreekanth', 'Charishma'];
@@ -10,6 +11,7 @@ const App = () => {
                 <h1>My Application</h1>
                 {welcomeNames}
                 <Form />
+                <Calculator />
             </div>;
 };
 
