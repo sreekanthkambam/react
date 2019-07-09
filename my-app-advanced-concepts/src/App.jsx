@@ -3,6 +3,7 @@ import './App.css';
 import ThemeContext, {themes} from './ThemeContext';
 import ThemeHeader from './ThemeHeader';
 import UserContext, {users} from './UserContext';
+import ErrorBoundary from './ErrorBoundary';
 
 class App extends React.Component {
 
@@ -19,6 +20,7 @@ class App extends React.Component {
 
     render() {
         return <div className="app">
+            <ErrorBoundary>
                 <h1>Advanced Guide</h1>
                 <div>
                     <button onClick={this.changeTheme}>
@@ -42,7 +44,8 @@ class App extends React.Component {
                 <ThemeContext.Consumer>
                     {value => <h2>Color is: {value.color}</h2>}
                 </ThemeContext.Consumer>
-            </div>;
+            </ErrorBoundary>
+        </div>;
     }
 
     changeTheme() {
