@@ -4,6 +4,7 @@ import ThemeContext, {themes} from './ThemeContext';
 import ThemeHeader from './ThemeHeader';
 import UserContext, {users} from './UserContext';
 import ErrorBoundary from './ErrorBoundary';
+import RefExample from './RefExample';
 
 class App extends React.Component {
 
@@ -44,6 +45,7 @@ class App extends React.Component {
                 <ThemeContext.Consumer>
                     {value => <h2>Color is: {value.color}</h2>}
                 </ThemeContext.Consumer>
+                <RefExample />
             </ErrorBoundary>
         </div>;
     }
