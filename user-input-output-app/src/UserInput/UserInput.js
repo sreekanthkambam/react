@@ -1,26 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class UserInput extends Component {
-    
-    render = () => {
-        const style = {
-            color: 'red'
-        };
+const userInput = (props) => {
+    const style = {
+        color: 'red'
+    };
 
-        return (
+    return (
             <div>
                 <p>
                     User Name:
                     <input 
                         type="text"
                         style={style}
-                        value={this.props.name}
-                        onChange={this.props.onUserInputChange} />
+                        value={props.name}
+                        onChange={props.onUserInputChange} />
                 </p>
             </div>
-        );
-    }
+    );
+};
 
-}
+export default userInput;
 
-export default UserInput;
