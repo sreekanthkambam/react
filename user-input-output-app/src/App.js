@@ -14,7 +14,7 @@ class App extends Component {
     });
   }
 
-  render() {
+  render = () => {
     return (
       <div className="App">
         <h1>This is a User Input Output Application</h1>
